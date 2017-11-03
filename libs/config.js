@@ -3,6 +3,8 @@ module.exports = {
   username: "root",
   password: "root",
   params: {
-    dialect: "mysql"
-  }
+    dialect: "mysql",
+  },
+  jwtSecret: "umaStringDificil",
+  jwtSession: {session: false}
 }
