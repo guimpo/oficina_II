@@ -20,14 +20,19 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "Usuario"
     }
   )
-    Usuario.hook('beforeCreate', (user) => {
-      const salt = bcrypt.genSaltSync()
-      user.password = bcrypt.hashSync(user.password, salt)
-    })
 
-    Usuario.isPassword = function(encodedPassword, password) {
-      return bcrypt.compareSync(password, encodedPassword);
-    }
+  Usuario.associate = function (models) {
+    Usuario.hasOne(models.Professor, { foreignKey: "usuarioId"})
+  }
 
-    return Usuario
+  Usuario.hook('beforeCreate', (user) => {
+    const salt = bcrypt.genSaltSync()
+    user.password = bcrypt.hashSync(user.password, salt)
+  })
+
+  Usuario.isPassword = function(encodedPassword, password) {
+    return bcrypt.compareSync(password, encodedPassword);
+  }
+
+  return Usuario
 }
