@@ -4,6 +4,7 @@
   "description": "Trabalho de oficina de integração",
   "main": "index.js",
   "scripts": {
+    "start": "node servidor.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Paulo Nakaima",
