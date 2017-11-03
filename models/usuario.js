@@ -9,18 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     senha: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
+      allowNull: false
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
+      allowNull: false
     }
     }, {
       tableName: "Usuario"
