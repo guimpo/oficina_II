@@ -19,7 +19,7 @@ module.exports = app => {
           res.status(412).json({ msg: error.message })
         })
     })
-  app.post("/users", (req, res) => {
+  app.post("/Usuario", (req, res) => {
     Users.create(req.body)
       .then(result => res.json(result))
       .catch(error => {
