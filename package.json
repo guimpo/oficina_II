@@ -4,7 +4,7 @@
   "description": "Trabalho de oficina de integração",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "babel-node index.js"
   },
   "author": "Paulo Nakaima",
   "license": "ISC",
