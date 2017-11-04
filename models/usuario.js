@@ -25,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     Usuario.hasOne(models.Professor, { foreignKey: "usuarioId"})
   }
 
-  Usuario.hook('beforeCreate', (user) => {
+  Usuario.hook('beforeCreate', (usuario) => {
     const salt = bcrypt.genSaltSync()
-    user.password = bcrypt.hashSync(user.password, salt)
+    usuario.senha = bcrypt.hashSync(usuario.senha, salt)
   })
 
   Usuario.isPassword = function(encodedPassword, password) {

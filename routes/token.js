@@ -2,15 +2,15 @@ var jwt = require("jwt-simple")
 
 module.exports = app => {
   const cfg = app.libs.config
-  const Users = app.db.models.Users
+  const Usuario = app.db.models.Usuario
   app.post("/token", (req, res) => {
-    if (req.body.email && req.body.password) {
+    if (req.body.email && req.body.senha) {
       const email = req.body.email
-      const password = req.body.password
-      Users.findOne({ where: { email: email } })
-        .then(user => {
-          if (Users.isPassword(user.password, password)) {
-            const payload = { id: user.id }
+      const senha = req.body.senha
+      Usuario.findOne({ where: { email: email } })
+        .then(usuario => {
+          if (Usuario.isPassword(usuario.senha, senha)) {
+            const payload = { id: usuario.id }
             res.json({
               token: jwt.encode(payload, cfg.jwtSecret)
             });

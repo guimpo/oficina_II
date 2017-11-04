@@ -3,7 +3,7 @@ var JwtStrategy = require('passport-jwt').Strategy
 var ExtractJwt = require("passport-jwt").ExtractJwt
 
 module.exports = app => {
-  var Users = app.db.models.Users;
+  var Usuario = app.db.models.Usuario;
   var cfg = app.libs.config;
   var params = {
     secretOrKey: cfg.jwtSecret,
@@ -11,13 +11,12 @@ module.exports = app => {
   };
   var strategy = new JwtStrategy(params, (payload, done) => {
     console.log(payload);
-    console.log("aqui")
-    Users.findById(payload.id)
-      .then(user => {
-        if (user) {
+    Usuario.findById(payload.id)
+      .then(usuario => {
+        if (usuario) {
           return done(null, {
-            id: user.id,
-            email: user.email
+            id: usuario.id,
+            email: usuario.email
           });
         }
         return done(null, false);
