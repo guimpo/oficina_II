@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Visualizar</title>
+</head>
+<body>
+  <h1>Visualizar</h1>
+  
+</body>
+<script src="http://localhost:3001/js/jquery-3.2.1.min.js"></script>
+<script>
+  var pegarDocumentos = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://localhost:3000/Documento/Analise");
+    xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+    xhr.setRequestHeader("Content-type", "application/json; charset = utf-8");
+    xhr.onreadystatechange = function () {
+      if (xhr.status == 200 && xhr.readyState == 4) {
+        var data = JSON.parse(xhr.response);
+        console.log(data);
+        console.log(data.token);
+        console.log(localStorage.getItem("token"));
+      }
+    }
+    xhr.send();
+  };
+
+  pegarDocumentos();
+
+    $('#login-btn').on('click', function () {
+      var email = $('#email').val();
+      var senha = $('#senha').val();
+
+      var user = JSON.stringify({ email: email, senha: senha });
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://localhost:3000/token/");
+      xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+      xhr.setRequestHeader("Content-type", "application/json; charset = utf-8");
+      xhr.onreadystatechange = function () {
+        if (xhr.status == 200 && xhr.readyState == 4) {
+          var data = JSON.parse(xhr.response);
+          console.log(data);
+          console.log(data.token);
+          localStorage.setItem("token", "Bearer " + data.token);
+          console.log(localStorage.getItem("token"));
+        }
+      }
+      xhr.send(user);
+    });
+</script>  
+</html>
