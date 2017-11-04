@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Documento.associate = function (models) {
     Documento.belongsTo(models.Aluno, {foreignKey: "alunoId"})
+    Documento.belongsTo(models.Item, { foreignKey: "itemId" })
   }
 
   return Documento
