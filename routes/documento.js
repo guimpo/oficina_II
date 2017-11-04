@@ -35,6 +35,7 @@ module.exports = app => {
     })
   
   app.route("/Documento/Analise")
+    .all(app.auth.authenticate())
     .get((req, res) => {
       Documento.findAll({
         include: [{all: true}]
