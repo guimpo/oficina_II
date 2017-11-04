@@ -18,5 +18,4 @@ module.exports = app => {
     delete req.body.id
     next();
   })
-  app.use(express.static("public"))
 }
