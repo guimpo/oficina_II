@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Cadastrar</title>
+</head>
+<body>
+  <h1>Cadastrar</h1>
+  <div style: "width: 80%; heigth: 100%;">
+    <div class="form-group">
+      <label for="email">email :</label>
+      <input name="email" type="email" class="form-control" id="email">
+    </div>
+    <div class="form-group">
+      <label for="senha">senha :</label>
+      <input name="senha" type="senha" class="form-control" id="senha">
+    </div>
+    <button type="submit" class="btn btn-default" id="cadastrar-btn">Cadastrar</button>
+  </div> 
+</body>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+  $('#cadastrar-btn').on('click', function() {
+    var email = $('#email').val();
+    var senha = $('#senha').val();
+
+    var user = JSON.stringify({email: email, senha: senha});
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://localhost:3000/Usuarios/");
+    xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+    xhr.setRequestHeader("Content-type", "application/json; charset = utf-8");
+    xhr.send(user);
+  });
+</script>  
+</html>
