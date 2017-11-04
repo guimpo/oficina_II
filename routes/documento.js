@@ -20,6 +20,18 @@ module.exports = app => {
           res.status(412).json({ msg: error.message })
         })
     })
+  
+  app.route("/Documento/Analise")
+    .get((req, res) => {
+      Documento.findAll({
+        include: [{all: true}]
+      })
+        .then(result => res.json(result))
+        .catch(error => {
+          res.status(412).json({ msg: error.message })
+        })
+    })
+  
   app.post("/Documentos", (req, res) => {
     Documento.create(req.body)
       .then(result => res.json(result))
