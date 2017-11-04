@@ -8,6 +8,15 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    pontos: {
+      type: DataTypes.INTEGER
+    },
+    resultado: {
+      type: DataTypes.STRING
+    },
+    comentario: {
+      type: DataTypes.STRING
     }
   }, {
       tableName: "Documento"
@@ -15,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   )
 
   Documento.associate = function (models) {
-    Documento.belongsTo(models.Aluno, {foreignKey: "alunoId"})
+    Documento.belongsTo(models.Usuario, {foreignKey: "alunoId"})
+    Documento.belongsTo(models.Usuario, { foreignKey: "professorId" })
     Documento.belongsTo(models.Item, { foreignKey: "itemId" })
   }
 

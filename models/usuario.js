@@ -7,13 +7,19 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    senha: {
-      type: DataTypes.STRING,
-      allowNull: false
+    nome: {
+      type: DataTypes.STRING
+    },
+    papel: {
+      type: DataTypes.STRING
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
+      allowNull: false
+    },
+    senha: {
+      type: DataTypes.STRING,
       allowNull: false
     }
     }, {
@@ -22,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   )
 
   Usuario.associate = function (models) {
-    Usuario.hasOne(models.Professor, { foreignKey: "usuarioId"})
+    // 
   }
 
   Usuario.hook('beforeCreate', (usuario) => {
