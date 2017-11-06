@@ -1,18 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <title>Visualizar</title>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
+    .row.content {
+      height: 450px
+    }
+
+    /* Set gray background color and 100% height */
+
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 120%;
+    }
+
+    .ative {
+      /*background-color: greenyellow;*/
+      cursor: pointer;
+      background-color: hsla(240, 60%, 70%, 0.3);
+      padding: 5%;
+      border: 1px solid lightgray;
+    }
+
+    .ative:active {
+      background-color: aqua;
+    }
+
+    /* Set black background color, white text and some padding */
+
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {
+        height: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Visualizar</h1>
-  
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">UTFTIME</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="envioDoc.html">Entradas</a>
+          </li>
+          <li class="active">
+            <a href="#">Aprovados</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#">
+              <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid text-center">
+    <div class="row content">
+      <div class="col-sm-2 sidenav">
+
+      </div>
+      <div class="col-sm-8 text-left">
+        <hr>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>RA</th>
+              <th>Grupo</th>
+              <th>Ítem</th>
+              <th>Pontos</th>
+              <th>Abrir</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="rowTable" id="line1">
+              <td>123412</td>
+              <td onclick="location.href='#'">Grupo 1</td>
+              <td onclick="location.href='#'">Ítem I</td>
+              <td onclick="location.href='#'" class="pencil">20</td>
+
+              <td>
+                <i class="glyphicon glyphicon-save ative"></i>
+              </td>
+
+            </tr>
+
+            <tr class="rowTable">
+              <td>124212</td>
+              <td onclick="location.href='#'">Grupo 2</td>
+              <td onclick="location.href='#'">Item III</td>
+              <td onclick="location.href='#'">10</td>
+              <td>
+                <i class="glyphicon glyphicon-save ative"></i>
+              </td>
+
+            </tr>
+
+            <tr class="rowTable">
+              <td>173412</td>
+              <td onclick="location.href='#'">Grupo 3</td>
+              <td onclick="location.href='#'">Ítem VI</td>
+              <td onclick="location.href='#'">10</td>
+              <td>
+                <i class="glyphicon glyphicon-save ative"></i>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-2 sidenav">
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="container-fluid text-center">
+    <p>Horas complementares</p>
+  </footer>
+
 </body>
+
+</html>
 <script src="http://localhost:3001/js/jquery-3.2.1.min.js"></script>
 <script>
+  var resposta;
   var pegarDocumentos = function() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://localhost:3000/Documento/Analise");
@@ -20,16 +173,48 @@
     xhr.setRequestHeader("Content-type", "application/json; charset = utf-8");
     xhr.onreadystatechange = function () {
       if (xhr.status == 200 && xhr.readyState == 4) {
-        var data = JSON.parse(xhr.response);
-        console.log(data);
-        console.log(data.token);
+        resposta = JSON.parse(xhr.response);
         console.log(localStorage.getItem("token"));
+        
       }
     }
     xhr.send();
   };
 
   pegarDocumentos();
+  
+  var fazerDownload = function() {
+    var xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://localhost:3000/Download/1");
+      xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+      xhr.setRequestHeader("Content-type", "application/download;");
+      xhr.responseType = 'arraybuffer'
+      xhr.onreadystatechange = function () {
+        if (xhr.status == 200 && xhr.readyState == 4) {
+           // Create a new Blob object using the 
+          //response data of the onload object
+          var blob = new Blob([this.response], { type: 'image/png' });
+          //Create a link element, hide it, direct 
+          //it towards the blob, and then 'click' it programatically
+          let a = document.createElement("a");
+          a.style = "display: none";
+          document.body.appendChild(a);
+          //Create a DOMString representing the blob 
+          //and point the link element towards it
+          let url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = 'myFile.png';
+          //programatically click the link to trigger the download
+          a.click();
+          //release the reference to the file by revoking the Object URL
+          window.URL.revokeObjectURL(url);
+        }
+      }
+      xhr.send();
+  }
+
+  fazerDownload();
+
 
     $('#login-btn').on('click', function () {
       var email = $('#email').val();
