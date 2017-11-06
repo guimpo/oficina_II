@@ -3,6 +3,7 @@
 Sugestão para configuração da aplicação:
 
 Escolha um diretório em sua máquina (crie um).
+
 1- Execute o seguinte comando:
 
 git clone -b <branch> --single-branch <url>
