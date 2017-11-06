@@ -9,6 +9,7 @@ Escolha um diretório em sua máquina (crie um).
 git clone -b *branch* --single-branch *url*
 
 *branch* Pode ser master(Destinado a documentação), front(Destinado ao front), back(Destinado ao back)
+
 *url* O endereço deste repositório
 
 2- No diretório da aplicação digite o comando (somente para as branchs front e back):
