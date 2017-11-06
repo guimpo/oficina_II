@@ -63,10 +63,10 @@ module.exports = app => {
     
   
   app.route("/Documento/Analise")
-    .all(app.auth.authenticate())
+    // .all(app.auth.authenticate())
     .get((req, res) => {
       Documento.findAll({
-        include: [{all: true}]
+        include: [{all: true, nested: true}]
       })
         .then(result => res.json(result))
         .catch(error => {
