@@ -1,4 +1,7 @@
 var multer = require('multer')
+var path = require('path')
+var fs = require('fs')
+
 
 var Storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -33,6 +36,31 @@ module.exports = app => {
           res.status(412).json({ msg: error.message })
         })
     })
+
+  app.route("/Download/:id")
+    // .all(app.auth.authenticate())
+    .get((req, res) => {
+      Documento.findOne({
+        where: {
+          id: req.params.id,
+        }
+      })
+      .then(result => {
+          var caminho = process.cwd()
+          var c = caminho + '/imagens/'
+          console.log("\n")
+          console.log(c)
+          var d = path.join(c,result.url)
+          var stat = fs.statSync(d)
+
+          var readStream = fs.createReadStream(d);
+          readStream.pipe(res);
+        })
+      .catch(error => {
+        res.status(412).json({ msg: error.message })
+      })
+    })
+    
   
   app.route("/Documento/Analise")
     .all(app.auth.authenticate())
