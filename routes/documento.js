@@ -38,7 +38,7 @@ module.exports = app => {
     })
 
   app.route("/Download/:id")
-    // .all(app.auth.authenticate())
+    .all(app.auth.authenticate())
     .get((req, res) => {
       Documento.findOne({
         where: {
@@ -51,10 +51,10 @@ module.exports = app => {
           console.log("\n")
           console.log(c)
           var d = path.join(c,result.url)
-          var stat = fs.statSync(d)
+          res.download(d)
 
-          var readStream = fs.createReadStream(d);
-          readStream.pipe(res);
+          // var readStream = fs.createReadStream(d);
+          // readStream.pipe(res);
         })
       .catch(error => {
         res.status(412).json({ msg: error.message })
