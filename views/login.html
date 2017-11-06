@@ -1,14 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <title>login</title>
+  <title>Horas complementares</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+
+    .rowTable:hover {
+      cursor: pointer;
+      background: aliceblue;
+      transition: 1s;
+    }
+
+    .mybtn {
+      border: 1px solid powderblue;
+      background-color: aliceblue;
+      margin-top: 50px;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: hidden;
+
+    }
+
+    .mybtn:hover {
+      background-color: skyblue;
+    }
+
+    .mybtn:active {
+      background-color: lightblue;
+    }
+
+    .col-centered {
+      margin-top: 100px;
+    }
+
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+    }
+
+    .rowTable:active {
+      background: lightblue;
+    }
+
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    .senha,
+    .ra {
+      width: 71%;
+    }
+
+    a[href*="LoginAluno"] {
+      text-decoration: none;
+    }
+
+    .form-control {
+      width: 50%;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
+    .row.content {
+      height: 450px
+    }
+
+    /* Set gray background color and 100% height */
+
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 120%;
+    }
+
+    #seAluno {
+      margin-right: 30px;
+      margin-top: 10px;
+      color: white;
+    }
+
+    /* Set black background color, white text and some padding */
+
+    footer {
+      background-color: white;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {
+        height: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>login</h1>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">UTFTIME</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <p id="seAluno">Se você é o aluno entre
+            <a href="LoginAluno.html">aqui</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid text-center">
+    <div class="row content">
+      <div class="col-sm-8 text-left">
+        <div class="container-fluid col-md-offset-6 col-centered">
+          <h2>Login Professor</h2>
+          <hr>
+          <div class="form-group">
+            <label for="sel1">SIAP:</label>
+            <div class="input-group ra">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-user"></i>
+              </span>
+              <input type="text" class="form-control" id="sel1" placeholder="Somente números">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sel2">Senha:</label>
+            <div class="input-group senha">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+              </span>
+              <input type="password" class="form-control" id="sel5" minlength="4" maxlength="8" size="8" placeholder="até 8 digitos">
+            </div>
+          </div>
+          <p>Se você não tem uma conta, crie uma
+            <a href="cadastroProfessor.html">aqui
+              <a>
+          </p>
+          <div class="form-group">
+            <button type="submit" class="btn mybtn btn-lg" id="login-btn">Entrar</button>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <h1>login</h1>
   <div style: "width: 80%; heigth: 100%;">
     <div class="form-group">
       <label for="email">email :</label>
@@ -18,16 +184,31 @@
       <label for="senha">senha :</label>
       <input name="senha" type="senha" class="form-control" id="senha">
     </div>
-    <button type="submit" class="btn btn-default" id="login-btn">login</button>
-  </div> 
+    <button type="submit" class="btn btn-default" id="login-btn">login</button> -->
+
+  <footer>
+    <div>
+      <hr>
+    </div>
+  </footer>
+
+
+ 
 </body>
+
+</html>
+
+  
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
-  $('#login-btn').on('click', function() {
-    var email = $('#email').val();
-    var senha = $('#senha').val();
+  $('#login-btn').on('click', function(event) {
+    event.preventDefault()
+    var email = $('#sel1').val();
+    var senha = $('#sel5').val();
 
     var user = JSON.stringify({email: email, senha: senha});
+
+    console.log(user)
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://localhost:3000/token/");
