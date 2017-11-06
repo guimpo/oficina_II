@@ -62,7 +62,7 @@ module.exports = app => {
     })
     
   
-  app.route("/Documento/Analise")
+  app.route("/Documento/all")
     // .all(app.auth.authenticate())
     .get((req, res) => {
       Documento.findAll({
