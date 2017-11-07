@@ -16,17 +16,16 @@ var upload = multer({ storage: Storage }).array("imgUploader", 3); //Field name 
 
 module.exports = app => {
   const Documento = app.db.models.Documento
-  const Usuario = app.db.models.Usuario
   
-  app.route("/Documento")
-    .all(app.auth.authenticate())
-    .delete((req, res) => {
-      Documento.destroy({ where: { id: req.documento.id } })
-        .then(result => res.sendStatus(204))
-        .catch(error => {
-          res.status(412).json({ msg: error.message })
-        })
-    })
+  // app.route("/Documento")
+  //   .all(app.auth.authenticate())
+  //   .delete((req, res) => {
+  //     Documento.destroy({ where: { id: req.documento.id } })
+  //       .then(result => res.sendStatus(204))
+  //       .catch(error => {
+  //         res.status(412).json({ msg: error.message })
+  //       })
+  //   })
 
   app.route("/Documento/:id")
     // .all(app.auth.authenticate())
@@ -49,8 +48,7 @@ module.exports = app => {
       })
     })
     
-  
-  app.route("/Documento/all")
+  app.route("/Documentos/all/")
     // .all(app.auth.authenticate())
     .get((req, res) => {
       Documento.findAll({
@@ -78,8 +76,6 @@ module.exports = app => {
       }
       return res.end("File uploaded sucessfully!.");
     });
-
-
 
     // Documento.create(req.body)
     //   .then(result => res.json(result))
