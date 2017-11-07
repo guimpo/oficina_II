@@ -16,29 +16,19 @@ var upload = multer({ storage: Storage }).array("imgUploader", 3); //Field name 
 
 module.exports = app => {
   const Documento = app.db.models.Documento
-  const Usuario = app.db.models.Usuario
   
-  app.route("/Documento")
-    .all(app.auth.authenticate())
-    .get((req, res) => {
-      Documento.findById(req.documento.id, {
-        attributes: ["id", "nome", "email"]
-      })
-        .then(result => res.json(result))
-        .catch(error => {
-          res.status(412).json({ msg: error.message })
-        })
-    })
-    .delete((req, res) => {
-      Documento.destroy({ where: { id: req.documento.id } })
-        .then(result => res.sendStatus(204))
-        .catch(error => {
-          res.status(412).json({ msg: error.message })
-        })
-    })
+  // app.route("/Documento")
+  //   .all(app.auth.authenticate())
+  //   .delete((req, res) => {
+  //     Documento.destroy({ where: { id: req.documento.id } })
+  //       .then(result => res.sendStatus(204))
+  //       .catch(error => {
+  //         res.status(412).json({ msg: error.message })
+  //       })
+  //   })
 
-  app.route("/Download/:id")
-    .all(app.auth.authenticate())
+  app.route("/Documento/:id")
+    // .all(app.auth.authenticate())
     .get((req, res) => {
       Documento.findOne({
         where: {
@@ -52,21 +42,17 @@ module.exports = app => {
           console.log(c)
           var d = path.join(c,result.url)
           res.download(d)
-
-          // var readStream = fs.createReadStream(d);
-          // readStream.pipe(res);
         })
       .catch(error => {
         res.status(412).json({ msg: error.message })
       })
     })
     
-  
-  app.route("/Documento/Analise")
-    .all(app.auth.authenticate())
+  app.route("/Documentos/all/")
+    // .all(app.auth.authenticate())
     .get((req, res) => {
       Documento.findAll({
-        include: [{all: true}]
+        include: [{all: true, nested: true}]
       })
         .then(result => res.json(result))
         .catch(error => {
@@ -90,8 +76,6 @@ module.exports = app => {
       }
       return res.end("File uploaded sucessfully!.");
     });
-
-
 
     // Documento.create(req.body)
     //   .then(result => res.json(result))
